@@ -19,4 +19,23 @@ def load_jobs_from_database():
       jobs.append(first_result_dict)
     return jobs
 
+def load_cooks_from_database():
+  with engine.connect() as conn:
+    result = conn.execute(text("select * from cooks"))
+    column_names = result.keys()
+    cooks = []
+    for row in result.all():
+      first_result_dict = dict(zip(column_names, row))
+      cooks.append(first_result_dict)
+    return cooks
+
+def load_job_from_database(id):
+  with engine.connect() as conn:
+    result = conn.execute(text(f"select * from jobs where id = {id}"))
+    rows = result.all()
+    column_names = result.keys()
+    if len(rows) == 0:
+      return None
+    else:
+      return dict(zip(column_names, rows[0]))
   

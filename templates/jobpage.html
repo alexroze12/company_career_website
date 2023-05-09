@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>{{job.title}} - Kukusiki Careers</title>
+  </head>
+  <body>
+    <h3>Title</h3>
+    <p>{{job.title}}</p>
+    <div>
+      <table class="table table-bordered border-primary">
+        <thead>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Age</th>
+          <th>Country</th>
+          <th>Actions</th>
+        </thead>
+        <tbody>
+          {% for cook in cooks %}
+          <tr>
+            <td>{{loop.index}}</td>
+            <td>{{cook.name}}</td>
+            <td>{{cook.gender}}</td>
+            <td>{{cook.age}}</td>
+            <td>{{cook.country}}</td>
+            <td>
+              <button type="button" class="btn btn-primary">Изменить</button>
+              <button type="button" class="btn btn-primary">Удалить</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+  
+</html>
