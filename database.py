@@ -19,15 +19,15 @@ def load_jobs_from_database():
       jobs.append(first_result_dict)
     return jobs
 
-def load_cooks_from_database():
+def load_all_jobs_from_database(id):
   with engine.connect() as conn:
-    result = conn.execute(text("select * from cooks"))
+    result = conn.execute(text(f"select * from job_{id}"))
     column_names = result.keys()
-    cooks = []
+    job = []
     for row in result.all():
       first_result_dict = dict(zip(column_names, row))
-      cooks.append(first_result_dict)
-    return cooks
+      job.append(first_result_dict)
+    return job
 
 def load_job_from_database(id):
   with engine.connect() as conn:
@@ -38,4 +38,16 @@ def load_job_from_database(id):
       return None
     else:
       return dict(zip(column_names, rows[0]))
-  
+
+def add_information_about_person(job_index_id, name_id, gender_id, age_id, country_id):
+  with engine.connect() as conn:
+    result = conn.execute(text(f"INSERT INTO job_{job_index_id} (name, gender, age, country, job_index) VALUES ('{name_id}', '{gender_id}', '{age_id}', '{country_id}', '{job_index_id}')"))
+
+def update_information_about_person(index, id, name_id, gender_id, age_id, country_id):
+  with engine.connect() as conn:
+    result = conn.execute(text(f"UPDATE job_{index} SET name = '{name_id}', gender = '{gender_id}', age = '{age_id}', country = '{country_id}' WHERE id = '{id}'"))
+
+
+def delete_information_from_database(index, id):
+  with engine.connect() as conn:
+    result = conn.execute(text(f"delete from job_{index} where id = {id}"))
