@@ -1,0 +1,10 @@
+Flask
+gunicorn
+sqlalchemy
+pymysql
+Flask_dance
+jwt
+datetime
+functools
+functools
+os
