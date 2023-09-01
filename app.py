@@ -11,7 +11,7 @@ os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'd759274eead94a149329d8f70922cf20'
+app.config['SECRET_KEY'] = ''
 
 def token_required(func):
   @wraps(func)
@@ -42,7 +42,7 @@ def home():
 @app.route('/')
 def hello_world():
   jobs = load_jobs_from_database()
-  return render_template('home.html', jobs=jobs, company_name='Kukusiki')
+  return render_template('home.html', jobs=jobs, company_name='Company')
 
 
 @app.route('/person_login', methods=['POST'])
@@ -67,7 +67,7 @@ def google_login():
   account_info = github.get('/plus/v1/people/me')
   if account_info.ok:
     account_info_json = account_info.json() 
-    return render_template('home.html', jobs=jobs, company_name='Kukusiki')
+    return render_template('home.html', jobs=jobs, company_name='Company')
   return '<h1>Request failed!</h1>'
 
 @app.route('/github')
@@ -78,7 +78,7 @@ def github_login():
   account_info = github.get('/user')
   if account_info.ok:
     account_info_json = account_info.json() 
-    return render_template('home.html', jobs=jobs, company_name='Kukusiki')
+    return render_template('home.html', jobs=jobs, company_name='Company')
   return '<h1>Request failed!</h1>'
 
 @app.route('/script_spa.js')
@@ -89,7 +89,7 @@ def spa():
 @app.route("/api/jobs")
 def list_jobs():
   jobs = load_jobs_from_database()
-  return jsonify(jobs) #rest api
+  return jsonify(jobs)
 
 @app.route("/job/<id>")
 def show_job_information(id):
